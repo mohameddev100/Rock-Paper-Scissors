@@ -28,7 +28,6 @@ function getHumanChoice() {
     human_choise.appendChild(rock);
     human_choise.appendChild(paper);
     human_choise.appendChild(scissors);
-
     rock.addEventListener("click", function handlRock() {
         playRound(rock.id, getComputerChoice(choises));
     });
@@ -43,40 +42,29 @@ function stopGame() {
     rock.removeEventListener("click", handlRock);
     paper.removeEventListener("click", handlPaper);
     scissors.removeEventListener("click", handlScissors);
+    return;
 }
 function playRound(humanChoise, computerChoise) {
-    if (humanChoise === "paper" && computerChoise === "rock") {
-        result.innerHTML = "Win";
-        humanScore += 1;
+    if (
+        (humanChoise === "paper" && computerChoise === "rock") ||
+        (humanChoise === "rock" && computerChoise === "scissors") ||
+        (humanChoise === "scissors" && computerChoise === "paper")
+    ) {
+        result.innerHTML = "You Win 🏆";
+        humanScore++;
         score.innerHTML = `${humanScore} : ${computerScore}`;
-    } else if (humanChoise === "rock" && computerChoise === "scissors") {
-        result.innerHTML = "Win";
-        humanScore += 1;
+    }
+    if (
+        (humanChoise === "rock" && computerChoise === "paper") ||
+        (humanChoise === "scissors" && computerChoise === "rock") ||
+        (humanChoise === "paper" && computerChoise === "scissors")
+    ) {
+        result.innerHTML = "You Lose ❌";
+        computerScore++;
         score.innerHTML = `${humanScore} : ${computerScore}`;
-    } else if (humanChoise === "scissors" && computerChoise === "paper") {
-        result.innerHTML = "Win";
-        humanScore += 1;
-        score.innerHTML = `${humanScore} : ${computerScore}`;
-    } else if (humanChoise === "rock" && computerChoise === "paper") {
-        computerScore += 1;
-        result.innerHTML = "Lose";
-        score.innerHTML = `${humanScore} : ${computerScore}`;
-    } else if (humanChoise === "scissors" && computerChoise === "rock") {
-        computerScore += 1;
-        result.innerHTML = "Lose";
-        score.innerHTML = `${humanScore} : ${computerScore}`;
-    } else if (humanChoise === "paper" && computerChoise === "scissors") {
-        computerScore += 1;
-        result.innerHTML = "Lose";
-        score.innerHTML = `${humanScore} : ${computerScore}`;
-    } else if (humanChoise === "scissors" && computerChoise === "scissors") {
-        result.innerHTML = "Tie";
-        score.innerHTML = `${humanScore} : ${computerScore}`;
-    } else if (humanChoise === "paper" && computerChoise === "paper") {
-        result.innerHTML = "Tie";
-        score.innerHTML = `${humanScore} : ${computerScore}`;
-    } else if (humanChoise === "rock" && computerChoise === "rock") {
-        result.innerHTML = "Tie";
+    }
+    if (humanChoise === computerChoise) {
+        result.innerHTML = "Tie 🟰";
         score.innerHTML = `${humanScore} : ${computerScore}`;
     }
     if (humanScore === 5) {
@@ -95,3 +83,4 @@ function playGame() {
 }
 
 playGame();
+
